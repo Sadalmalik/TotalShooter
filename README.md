@@ -1,2 +1,2 @@
 # TotalShooter
-Wibe coded shooter game
+Vibe coded shooter game
