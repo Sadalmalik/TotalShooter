@@ -132,30 +132,45 @@ class Spawner // компонент на Entity
 ]
 ```
 
-`world.json` (инстансы на карте):
+`world.json` (инстансы на карте, `"schemaVersion"` — метка версии схемы для загрузчика,
+`Parent` — плоская иерархия, не вложенные `children`):
 
 ```json
-[
-  {
-    "EntityId": 1,
-    "Prefab": "core/wall_1",
-    "Transform": { "Position": [0, 0, 10], "Rotation": [0, 0, 0], "Scale": [1, 1, 1] }
-  },
-  {
-    "EntityId": 2,
-    "Transform": { "Position": [0, 0, 5] },
-    "Spawner": {
-      "Tags": ["start-area", "difficulty:easy"],
-      "Units": ["core/lite-bug", "core/medium-bug", "world/ultra-lite-bug"]
+{
+  "schemaVersion": 1,
+  "entities": [
+    {
+      "EntityId": 1,
+      "Prefab": "core/wall_module",
+      "Transform": { "Position": [0, 0, 10], "Rotation": [0, 0, 0], "Scale": [1, 1, 1] }
+    },
+    {
+      "EntityId": 2,
+      "Parent": 1,
+      "Prefab": "core/door",
+      "Transform": { "Position": [0, 0, 1] }
+    },
+    {
+      "EntityId": 3,
+      "Transform": { "Position": [0, 0, 5] },
+      "Spawner": {
+        "Tags": ["start-area", "difficulty:easy"],
+        "Units": ["core/lite-bug", "core/medium-bug", "world/ultra-lite-bug"]
+      }
+    },
+    {
+      "EntityId": 4,
+      "Prefab": "core/huge-bug",
+      "Health": { "Current": 1400, "Max": 1400 }
     }
-  },
-  {
-    "EntityId": 3,
-    "Prefab": "core/huge-bug",
-    "Health": { "Current": 1400, "Max": 1400 }
-  }
-]
+  ]
+}
 ```
+
+Загрузка: сначала инстанцировать все записи без `Parent` (корни), затем рекурсивно —
+записи, чей `Parent` уже инстанцирован, вкладывая через `Transform.SetParent`. При обходе
+следить за посещёнными `EntityId` (защита от циклов), битый/несуществующий `Parent` —
+трактовать как отсутствие родителя.
 
 Резолвинг имени в объект (`ResolvePrototype(name)`), псевдокод:
 
