@@ -35,7 +35,7 @@ namespace Sadalmalik.GridNavigation
 
         public static List<NavGridNode> FindPath(NavGridNode start, NavGridNode end, int limit = 10000)
         {
-            foreach (var node in NavGridNode.AllNodes)
+            foreach (var node in NavGrid.AllNodes)
                 node.Marked = false;
 
             var nodes = new List<PathNode>();
