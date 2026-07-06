@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>NLua</id>
+    <version>1.7.9</version>
+    <authors>NLua</authors>
+    <owners>Vinicius Jarina</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/nlua/NLua/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nlua/NLua</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/nlua/NLua/main/NLua.png</iconUrl>
+    <description>NLua Package.</description>
+    <summary>NLua allow use Lua from C#, using Windows, UWP, Linux, Android, Mac, iOS , tvOS.</summary>
+    <releaseNotes>Release: b314d6f</releaseNotes>
+    <copyright>Copyright © NLua 2026</copyright>
+    <tags>lua nlua</tags>
+    <repository type="git" url="https://github.com/nlua/nlua" commit="b314d6f6e773d683646ddaeb75361ceff951647a" />
+    <dependencies>
+      <dependency id="KeraLua" version="1.4.9" />
+    </dependencies>
+  </metadata>
+</package>

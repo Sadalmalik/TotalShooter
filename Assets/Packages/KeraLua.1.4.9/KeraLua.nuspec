@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>KeraLua</id>
+    <version>1.4.9</version>
+    <authors>NLua</authors>
+    <owners>Vinicius Jarina</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/nlua/KeraLua/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nlua/KeraLua</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/nlua/KeraLua/main/KeraLua.png</iconUrl>
+    <description>C# Native bindings of Lua 5.4 (compatible with iOS/Mac/Android/.NET/UWP)</description>
+    <releaseNotes>Release: 06842df</releaseNotes>
+    <copyright>Copyright © Vinicius Jarina 2026</copyright>
+    <tags>lua keralua</tags>
+    <repository type="git" url="https://github.com/nlua/KeraLua" commit="06842dfec8929b0a6da51b3a053f6b87f03ae1c6" />
+  </metadata>
+</package>
