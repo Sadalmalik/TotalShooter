@@ -1,7 +1,8 @@
 # TotalShooter — технические спецификации для реализации
 
-Конкретные детали (поля/методы/потоки), дополняющие решения из `.claude/architecture.md`.
-Читать при работе над конкретной задачей реализации — не грузится автоматически.
+Конкретные детали (поля/методы/потоки), дополняющие решения из `.claude/architecture-core.md`,
+`.claude/architecture-network.md` и `.claude/architecture-combat.md`. Читать при работе над
+конкретной задачей реализации — не грузится автоматически.
 
 ## Жизненный цикл сессии — пошагово
 
@@ -19,7 +20,7 @@
    `NetworkManager` (в колбэке подключения NGO) спавнит `PlayerState`+`PlayerController` для
    игрока 2 → мир уже загружен, реплицируется в рамках подключения → `Possess(defaultGhost)`.
 4. Каждый игрок жмёт "готов" (MVP: кнопка в `UIInGameHUD`, не скрипт — см.
-   architecture.md "Заметки на будущее") → `GameManager` считает готовых, при всех готовых
+   architecture-network.md "Заметки на будущее") → `GameManager` считает готовых, при всех готовых
    стартует 10-секундный countdown (пишет в `GameState.NetworkVariable`), новый коннект во
    время countdown — сброс.
 5. Countdown = 0 → `GameManager` спавнит боевых персонажей всем, `Possess(character)` для
@@ -99,7 +100,7 @@ class Spawner // компонент на Entity
     List<string> Tags;              // чтобы AIDirector отличал спавнеры друг от друга
     List<string> Units;              // имена типов юнитов (резолвятся через ResolvePrototype,
                                       // не прямые GameObject-ссылки — см. "Реестр контента"
-                                      // в .claude/architecture.md)
+                                      // в .claude/architecture-core.md)
     float SpawnCooldown;             // пауза между спавнами
     bool AutoSpawn;                  // спавнит ли сам по себе
     int AutoSpawnLimit;              // после скольких спавнов AutoSpawn сбрасывается в false
