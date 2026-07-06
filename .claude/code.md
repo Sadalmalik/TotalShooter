@@ -97,7 +97,9 @@ class Health // MonoBehaviour-компонент на Entity
 class Spawner // компонент на Entity
 {
     List<string> Tags;              // чтобы AIDirector отличал спавнеры друг от друга
-    List<GameObject> UnitPrefabs;    // что может заспавнить
+    List<string> Units;              // имена типов юнитов (резолвятся через ResolvePrototype,
+                                      // не прямые GameObject-ссылки — см. "Реестр контента"
+                                      // в .claude/architecture.md)
     float SpawnCooldown;             // пауза между спавнами
     bool AutoSpawn;                  // спавнит ли сам по себе
     int AutoSpawnLimit;              // после скольких спавнов AutoSpawn сбрасывается в false
@@ -109,6 +111,71 @@ class Spawner // компонент на Entity
 
 Пример использования: игрок заходит в зону → зональный Lua-скрипт вызывает
 `spawner.Spawn(20, 2.0f)` на нужных спавнерах по тегу.
+
+## Реестр контента: формат data.json / world.json и резолвинг
+
+`data.json` (локальные для мира определения, prototype-цепочка):
+
+```json
+[
+  {
+    "name": "world/ultra-lite-bug",
+    "prototype": "core/lite-bug",
+    "Health": { "Max": 40 }
+  },
+  {
+    "name": "core/lite-bug",
+    "prototype": "core/lite-bug",
+    "prefab": "core/huge-bug",
+    "Health": { "Max": 300 }
+  }
+]
+```
+
+`world.json` (инстансы на карте):
+
+```json
+[
+  {
+    "EntityId": 1,
+    "Prefab": "core/wall_1",
+    "Transform": { "Position": [0, 0, 10], "Rotation": [0, 0, 0], "Scale": [1, 1, 1] }
+  },
+  {
+    "EntityId": 2,
+    "Transform": { "Position": [0, 0, 5] },
+    "Spawner": {
+      "Tags": ["start-area", "difficulty:easy"],
+      "Units": ["core/lite-bug", "core/medium-bug", "world/ultra-lite-bug"]
+    }
+  },
+  {
+    "EntityId": 3,
+    "Prefab": "core/huge-bug",
+    "Health": { "Current": 1400, "Max": 1400 }
+  }
+]
+```
+
+Резолвинг имени в объект (`ResolvePrototype(name)`), псевдокод:
+
+```
+ResolvePrototype(name, visited = {}):
+    if name in visited: error "цикл в цепочке прототипов"
+    visited.add(name)
+
+    def = LookupInOrder(name)   // локальный data.json мира → (моды, когда появятся) → core-ассеты
+    base = def.prototype != null
+        ? ResolvePrototype(def.prototype, visited)   // рекурсия на N уровней
+        : LoadPrefab(def.prefab ?? name)              // дно цепочки — реальный префаб
+
+    return ApplyOverrides(base, def)  // те же оверрайды полей компонентов, что и при загрузке world.json
+```
+
+Весь код, спавнящий контент по имени (Spawner, Ability и т.п.), обязан идти через
+`ResolvePrototype`, не напрямую через `Resources.Load`/`AssetBundle` — иначе локальные
+переопределения `data.json` не применятся молча. Сохранение мира сейчас — полный дамп текущих
+значений полей компонентов Entity (не дельта от резолвленных дефолтов) — проще для старта.
 
 ## Sandbox-редактирование не-хостом — поток
 
