@@ -27,9 +27,26 @@ namespace Sadalmalik.TotalShooter.Architecture
         {
             foreach (var (type, instance) in m_Instances)
             {
-                if (type.IsAssignableFrom(typeof(I)))
+                if (typeof(I).IsAssignableFrom(type))
                     yield return (I) instance;
             }
+        }
+
+        public static void Remove<T>()
+        {
+            if (!m_Instances.TryGetValue(typeof(T), out var instance))
+                return;
+            if (instance is IDisposable disposable)
+                disposable.Dispose();
+            m_Instances.Remove(typeof(T));
+        }
+
+        public static void RemoveAll()
+        {
+            foreach (var instance in m_Instances.Values)
+                if (instance is IDisposable disposable)
+                    disposable.Dispose();
+            m_Instances.Clear();
         }
     }
 }

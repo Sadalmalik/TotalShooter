@@ -2,39 +2,19 @@ using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Multiplayer;
-using UnityEngine;
 
 namespace Sadalmalik.TotalShooter
 {
     // Транспорт/сессия: поднимает Unity Services и создаёт/присоединяет игровую сессию через
     // Sessions API (Relay+Lobby под капотом; сам стартует NGO-хост/клиент). Спавн игроков и фазы
-    // матча — не здесь, это GameManager. Наш NetworkManager != Unity.Netcode.NetworkManager
-    // (тот — низкоуровневый транспорт NGO, им рулит Sessions API под капотом).
-    public class NetworkManager : MonoBehaviour
+    // матча — не здесь, это GameManager. POCO-сервис (не MonoBehaviour): реактивный, Unity-цикл не
+    // нужен. Наш NetworkManager != Unity.Netcode.NetworkManager (тем рулит Sessions API под капотом).
+    public class NetworkManager
     {
-        public static NetworkManager Instance { get; private set; }
-
         public ISession CurrentSession { get; private set; }
         public bool IsInSession => CurrentSession != null;
 
         private bool m_ServicesReady;
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
-
-        private void OnDestroy()
-        {
-            if (Instance == this)
-                Instance = null;
-        }
 
         // Инициализация Unity Services + анонимный вход — один раз за запуск.
         public async Task EnsureServicesAsync()

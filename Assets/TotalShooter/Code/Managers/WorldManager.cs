@@ -7,15 +7,13 @@ using UnityEngine;
 namespace Sadalmalik.TotalShooter
 {
     // Ядро мира: центральный реестр всех Entity по EntityId + резолвинг прототипов контента
-    // (data.json). Загрузка/сохранение мира (world.json) с файловой IO — добавляется следующим
-    // куском. На реестр завязано всё, что адресует объекты по id — репликация, Spawner,
-    // sandbox-редактирование, SceneConverter.
-    public class WorldManager : MonoBehaviour
+    // (data.json) + загрузка/сохранение мира (world.json). На реестр завязано всё, что адресует
+    // объекты по id — репликация, Spawner, sandbox-редактирование, SceneConverter. POCO-сервис
+    // (не MonoBehaviour): регистрируется в Service на бутстрапе, Unity-жизненный цикл ему не нужен.
+    public class WorldManager
     {
         // EntityId == 0 — "не присвоен"; реальные id начинаются с 1.
         public const int NoId = 0;
-
-        public static WorldManager Instance { get; private set; }
 
         private readonly Dictionary<int, Entity> m_Entities = new();
         private int m_NextId = 1;
@@ -25,23 +23,6 @@ namespace Sadalmalik.TotalShooter
         private readonly Dictionary<string, JObject> m_Definitions = new();
 
         public IReadOnlyDictionary<int, Entity> Entities => m_Entities;
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
-
-        private void OnDestroy()
-        {
-            if (Instance == this)
-                Instance = null;
-        }
 
         public Entity Get(int entityId)
         {
@@ -158,7 +139,7 @@ namespace Sadalmalik.TotalShooter
                 return null;
             }
 
-            return Instantiate(prefab);
+            return UnityEngine.Object.Instantiate(prefab);
         }
 
 #endregion
