@@ -28,6 +28,14 @@ namespace Sadalmalik.TotalShooter
                 Possess(m_InitialPawn);
         }
 
+        // Внешняя связка (GameStarter/GameManager инстанцирует контроллер, камеру и пешку отдельно
+        // и сводит их здесь). Для standalone-теста можно вместо этого назначить поля в инспекторе.
+        public void Setup(CameraOperator camera, Entity pawn)
+        {
+            m_Camera = camera;
+            Possess(pawn);
+        }
+
         private void OnEnable()
         {
             m_MoveAction?.action.Enable();

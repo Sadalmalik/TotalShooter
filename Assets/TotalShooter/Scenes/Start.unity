@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.GameStarter
   m_EnvironmentPrefab: {fileID: 137509882307423502, guid: 0aa049b710f3c9b498c5179888f192bc, type: 3}
-  m_UnitPrefab: {fileID: 3235479174018484081, guid: d2b04a990c2b5944689d4e6ecbdce223, type: 3}
+  m_GhostPrefab: {fileID: 3235479174018484081, guid: d2b04a990c2b5944689d4e6ecbdce223, type: 3}
   m_CameraOperatorPrefab: {fileID: 2951304025031410878, guid: b059c9a11d1f6f2488e3786c05d62974, type: 3}
+  m_PlayerControllerPrefab: {fileID: 2577204828771945861, guid: 5c9d4265cd7508b43baac56de89f7163, type: 3}
 --- !u!4 &1846711835
 Transform:
   m_ObjectHideFlags: 0

@@ -249,10 +249,8 @@ MonoBehaviour:
   m_VerAxis: {fileID: 4398682971933718960}
   m_HorAxis: {fileID: 8334924266373990409}
   m_DistAxis: {fileID: 7481478565211914478}
-  m_LookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_ZoomAction: {fileID: -8574340544721755842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_Camera: {fileID: 2511796118715832023}
   m_MinZoom: 5
   m_MaxZoom: 25
-  m_LookSensitivity: 0.1
-  m_ZoomSensitivity: 0.05
-  Target: {fileID: 0}
+  m_LookSensitivity: 0.25
+  m_ZoomSensitivity: 1

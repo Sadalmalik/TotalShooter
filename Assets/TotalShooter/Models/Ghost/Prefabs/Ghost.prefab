@@ -307,7 +307,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4557122228350341941}
+  - component: {fileID: 7763085276515306168}
   - component: {fileID: 3235479174018484081}
+  - component: {fileID: 5148870002942274755}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -331,6 +333,31 @@ Transform:
   - {fileID: 6185681083735590872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &7763085276515306168
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562415764524114543}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3235479174018484081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +370,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 0
   controller: {fileID: 0}
+  Proto: 
+--- !u!114 &5148870002942274755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562415764524114543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eedcd118f7d7fe44690c06814cafdff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.ActionMovement
+  m_Speed: 6
+  m_UseGravity: 1
+  m_Gravity: -9.81
 --- !u!1 &7679575946471662533
 GameObject:
   m_ObjectHideFlags: 0
