@@ -6,6 +6,7 @@
         "Unity.InputSystem",
         "Unity.InputSystem.ForUI",
         "Unity.Netcode.Runtime",
+        "Unity.Collections",
         "Unity.Services.Core",
         "Unity.Services.Authentication",
         "Unity.Services.Multiplayer"
