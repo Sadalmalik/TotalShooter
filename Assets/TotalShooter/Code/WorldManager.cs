@@ -327,41 +327,45 @@ namespace Sadalmalik.TotalShooter
 
         public string SaveWorldJson()
         {
-            var entities = new JArray();
+            return SerializeEntities(m_Entities.Values);
+        }
 
-            foreach (var entity in SortedById())
-            {
-                var entry = new JObject { ["EntityId"] = entity.EntityId };
+        // Сериализует произвольный набор Entity в текст world.json. Статический и без завязки на
+        // реестр — чтобы этим же кодом пользовалась editor-тулза SceneConverter (сохранение сцены
+        // как мира). Порядок — по EntityId (читаемый дифф).
+        public static string SerializeEntities(IEnumerable<Entity> entities)
+        {
+            var sorted = new List<Entity>(entities);
+            sorted.Sort((a, b) => a.EntityId.CompareTo(b.EntityId));
 
-                if (!string.IsNullOrEmpty(entity.Proto))
-                    entry["Proto"] = entity.Proto;
-
-                var parent = entity.transform.parent != null
-                    ? entity.transform.parent.GetComponent<Entity>()
-                    : null;
-                if (parent != null)
-                    entry["Parent"] = parent.EntityId;
-
-                entry["Transform"] = DumpTransform(entity.transform);
-                entry.Merge(ComponentOverrides.Dump(entity));
-
-                entities.Add(entry);
-            }
+            var array = new JArray();
+            foreach (var entity in sorted)
+                array.Add(BuildEntry(entity));
 
             var root = new JObject
             {
                 ["schemaVersion"] = SchemaVersion,
-                ["entities"] = entities,
+                ["entities"] = array,
             };
             return root.ToString(Formatting.Indented);
         }
 
-        // Стабильный порядок по EntityId — чтобы дифф сохранений был читаемым.
-        private List<Entity> SortedById()
+        private static JObject BuildEntry(Entity entity)
         {
-            var list = new List<Entity>(m_Entities.Values);
-            list.Sort((a, b) => a.EntityId.CompareTo(b.EntityId));
-            return list;
+            var entry = new JObject { ["EntityId"] = entity.EntityId };
+
+            if (!string.IsNullOrEmpty(entity.Proto))
+                entry["Proto"] = entity.Proto;
+
+            var parent = entity.transform.parent != null
+                ? entity.transform.parent.GetComponent<Entity>()
+                : null;
+            if (parent != null)
+                entry["Parent"] = parent.EntityId;
+
+            entry["Transform"] = DumpTransform(entity.transform);
+            entry.Merge(ComponentOverrides.Dump(entity));
+            return entry;
         }
 
         private static JObject DumpTransform(Transform t)
