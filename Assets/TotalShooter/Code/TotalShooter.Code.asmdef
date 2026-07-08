@@ -2,9 +2,13 @@
     "name": "TotalShooter.Code",
     "rootNamespace": "",
     "references": [
-        "GUID:619a7f2de1c851343863e92b7e637f02",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:09dcc9c0126b6b34ab2a877b8f2277f5"
+        "DOTween.Modules",
+        "Unity.InputSystem",
+        "Unity.InputSystem.ForUI",
+        "Unity.Netcode.Runtime",
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "Unity.Services.Multiplayer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
