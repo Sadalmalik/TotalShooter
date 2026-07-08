@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -158,6 +159,224 @@ namespace Sadalmalik.TotalShooter
             }
 
             return Instantiate(prefab);
+        }
+
+#endregion
+
+#region Загрузка мира (world.json)
+
+        // Текущая версия схемы файлов мира. Несовпадение — явный отказ загрузки (миграции пока
+        // не строим, см. architecture-core.md "Версионирование схемы").
+        public const int SchemaVersion = 1;
+
+        // Папка Worlds/ рядом с исполняемым файлом (в редакторе — рядом с папкой Assets).
+        public static string WorldsRoot =>
+            Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Worlds");
+
+        // Загружает мир из папки Worlds/<worldName>/ (data.json + world.json).
+        public bool LoadWorld(string worldName)
+        {
+            var folder = Path.Combine(WorldsRoot, worldName);
+            if (!Directory.Exists(folder))
+            {
+                Debug.LogError($"World folder not found: {folder}");
+                return false;
+            }
+
+            var dataPath = Path.Combine(folder, "data.json");
+            LoadData(File.Exists(dataPath) ? File.ReadAllText(dataPath) : null);
+
+            var worldPath = Path.Combine(folder, "world.json");
+            if (!File.Exists(worldPath))
+            {
+                Debug.LogError($"world.json not found in {folder}");
+                return false;
+            }
+
+            return LoadWorldJson(File.ReadAllText(worldPath));
+        }
+
+        public bool LoadWorldJson(string worldJson)
+        {
+            JObject root;
+            try
+            {
+                root = JObject.Parse(worldJson);
+            }
+            catch (JsonException e)
+            {
+                Debug.LogError($"Failed to parse world.json: {e.Message}");
+                return false;
+            }
+
+            var version = root.Value<int?>("schemaVersion");
+            if (version != SchemaVersion)
+            {
+                Debug.LogError($"world.json schemaVersion {version} != expected {SchemaVersion}; refusing to load");
+                return false;
+            }
+
+            if (root["entities"] is not JArray entities)
+            {
+                Debug.LogError("world.json has no 'entities' array");
+                return false;
+            }
+
+            // Проход 1: инстанцировать все записи плоско (id + компоненты + Transform), запомнив
+            // их вместе с записью для линковки родителей.
+            var created = new List<(Entity entity, JObject entry)>();
+            foreach (var token in entities)
+            {
+                if (token is not JObject entry)
+                    continue;
+
+                var entity = InstantiateEntry(entry);
+                if (entity != null)
+                    created.Add((entity, entry));
+            }
+
+            // Проход 2: связать родителей по EntityId. Битый/несуществующий Parent — как отсутствие
+            // родителя; линковка, создающая цикл — отклоняется.
+            foreach (var (entity, entry) in created)
+            {
+                var parentId = entry.Value<int?>("Parent");
+                if (parentId == null)
+                    continue;
+
+                var parent = Get(parentId.Value);
+                if (parent == null)
+                {
+                    Debug.LogWarning($"Entity {entity.EntityId}: parent {parentId} not found, treating as root", entity);
+                    continue;
+                }
+
+                if (WouldCycle(entity.transform, parent.transform))
+                {
+                    Debug.LogError($"Entity {entity.EntityId}: parenting to {parentId} would create a cycle", entity);
+                    continue;
+                }
+
+                entity.transform.SetParent(parent.transform, false);
+            }
+
+            return true;
+        }
+
+        private Entity InstantiateEntry(JObject entry)
+        {
+            // "Proto" резолвится через ResolvePrototype — значение может быть как именем префаба,
+            // так и именем прототипа из data.json (единая точка резолвинга). Без "Proto" —
+            // голая Entity, целиком описанная инлайновыми оверрайдами компонентов.
+            var proto = entry.Value<string>("Proto");
+            var entity = proto != null
+                ? ResolvePrototype(proto)
+                : new GameObject("Entity").AddComponent<Entity>();
+
+            if (entity == null)
+                return null;
+
+            entity.Proto = proto;
+            entity.EntityId = entry.Value<int?>("EntityId") ?? NoId;
+            Register(entity);
+
+            ComponentOverrides.Apply(entity, entry);
+            ApplyTransform(entity.transform, entry["Transform"] as JObject);
+            return entity;
+        }
+
+        private static void ApplyTransform(Transform transform, JObject t)
+        {
+            if (t == null)
+                return;
+
+            if (t["Position"] is { } position)
+                transform.localPosition = ToVector3(position);
+            if (t["Rotation"] is { } rotation)
+                transform.localEulerAngles = ToVector3(rotation);
+            if (t["Scale"] is { } scale)
+                transform.localScale = ToVector3(scale);
+        }
+
+        private static Vector3 ToVector3(JToken token)
+        {
+            var v = token.ToObject<float[]>();
+            return v is { Length: >= 3 } ? new Vector3(v[0], v[1], v[2]) : Vector3.zero;
+        }
+
+        private static bool WouldCycle(Transform child, Transform parent)
+        {
+            for (var t = parent; t != null; t = t.parent)
+                if (t == child)
+                    return true;
+            return false;
+        }
+
+#endregion
+
+#region Сохранение мира (world.json)
+
+        // Пишет текущее состояние мира в Worlds/<worldName>/world.json. data.json не трогаем —
+        // это авторские определения контента, не состояние (сохраняем только инстансы).
+        public bool SaveWorld(string worldName)
+        {
+            var folder = Path.Combine(WorldsRoot, worldName);
+            Directory.CreateDirectory(folder);
+            File.WriteAllText(Path.Combine(folder, "world.json"), SaveWorldJson());
+            return true;
+        }
+
+        public string SaveWorldJson()
+        {
+            var entities = new JArray();
+
+            foreach (var entity in SortedById())
+            {
+                var entry = new JObject { ["EntityId"] = entity.EntityId };
+
+                if (!string.IsNullOrEmpty(entity.Proto))
+                    entry["Proto"] = entity.Proto;
+
+                var parent = entity.transform.parent != null
+                    ? entity.transform.parent.GetComponent<Entity>()
+                    : null;
+                if (parent != null)
+                    entry["Parent"] = parent.EntityId;
+
+                entry["Transform"] = DumpTransform(entity.transform);
+                entry.Merge(ComponentOverrides.Dump(entity));
+
+                entities.Add(entry);
+            }
+
+            var root = new JObject
+            {
+                ["schemaVersion"] = SchemaVersion,
+                ["entities"] = entities,
+            };
+            return root.ToString(Formatting.Indented);
+        }
+
+        // Стабильный порядок по EntityId — чтобы дифф сохранений был читаемым.
+        private List<Entity> SortedById()
+        {
+            var list = new List<Entity>(m_Entities.Values);
+            list.Sort((a, b) => a.EntityId.CompareTo(b.EntityId));
+            return list;
+        }
+
+        private static JObject DumpTransform(Transform t)
+        {
+            return new JObject
+            {
+                ["Position"] = ToArray(t.localPosition),
+                ["Rotation"] = ToArray(t.localEulerAngles),
+                ["Scale"] = ToArray(t.localScale),
+            };
+        }
+
+        private static JArray ToArray(Vector3 v)
+        {
+            return new JArray(v.x, v.y, v.z);
         }
 
 #endregion
