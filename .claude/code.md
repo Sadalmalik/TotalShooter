@@ -32,17 +32,25 @@
    призрак игрока на золотой вариант, останавливает `AIController`/`AIDirector` опционально
    по отдельности.
 
-## GameManager — состояния матча
+## GameState / PlayerState — реплицируемые KV-blackboard'ы
 
-Простой enum/state machine, без over-engineering:
+Состояния сессии — не фиксированные `NetworkVariable`-поля, а **key-value**, доступные из Lua
+(матч-логика скриптуется, не хардкодится — см. `architecture-network.md`).
 
-```
-enum MatchPhase { Lobby, Countdown, InProgress, /* Ended — по необходимости позже */ }
-```
+Общий примитив — **`Blackboard : NetworkList<KvEntry>`** (`Architecture/Blackboard.cs`):
+- Наследует `NetworkList`, поэтому *сам* является сетевой переменной — NGO находит его как поле
+  `NetworkBehaviour` (в чужие вложенные объекты NGO не заходит, поэтому обычная обёртка вокруг
+  `NetworkList` не реплицировалась бы).
+- Сверху — строковый индексатор `board["key"]` рядом с унаследованным `this[int]`.
+- `KvEntry` — **unmanaged** вариант-структура (`FixedString64` ключ + тег + `FixedString512`/
+  `double`/`bool`), чтобы ложиться в `NetworkList` без managed-сериализации. Значения `string`/
+  `double`/`bool` = нативные типы Lua. Капы: ключ ≤ 63 байта, строка ≤ 511.
+- Право записи задаётся в конструкторе (`NetworkVariableWritePermission`).
 
-`GameManager` — единственный, кто меняет `MatchPhase` и решает, что делать при смене (спавн
-персонажей, вкл/выкл AI). `GameState.NetworkVariable<MatchPhase>` + `NetworkVariable<float>
-CountdownRemaining` + `NetworkVariable<int> ReadyCount` — то, что реально нужно клиентам для UI.
+`GameState` — один `Blackboard` (write = Server, пишет хост). `PlayerState` — два: owner-секция
+(write = Owner) + host-секция (write = Server). Индексатор `EntityVariables`-style, NLua
+пробрасывает автоматически. Фазу/countdown/готовность пишет матч-Lua ключами (напр.
+`gameState["phase"] = "countdown"`), не C#-enum.
 
 ## PlayerController — possession API
 

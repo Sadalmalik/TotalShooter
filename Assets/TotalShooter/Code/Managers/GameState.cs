@@ -8,15 +8,9 @@ namespace Sadalmalik.TotalShooter
     // хардкод C# — ради этого и KV вместо фиксированных полей. NetworkObject-мета-объект сессии.
     public class GameState : NetworkBehaviour
     {
-        // Default write permission NetworkList = Server → пишет только хост, что нам и нужно.
-        private readonly NetworkList<KvEntry> m_State = new();
-
-        private Blackboard m_Board;
-
-        private void Awake()
-        {
-            m_Board = new Blackboard(m_State);
-        }
+        // Blackboard сам является NetworkList → NGO находит это поле и реплицирует. Дефолтное
+        // право записи — Server (пишет хост), что нам и нужно.
+        private readonly Blackboard m_Board = new();
 
         // Индексатор для Lua/C#: gameState["phase"] = "countdown".
         public object this[string key]

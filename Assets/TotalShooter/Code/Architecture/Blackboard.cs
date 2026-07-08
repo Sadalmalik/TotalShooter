@@ -43,19 +43,20 @@ namespace Sadalmalik.TotalShooter.Architecture
         }
     }
 
-    // Доступ по ключу (индексатор) к реплицируемому NetworkList<KvEntry>, как к словарю. Сам
-    // NetworkList живёт полем в NetworkBehaviour (NGO находит его рефлексией) — сюда передаётся
-    // ссылкой. Запись идёт через NetworkList, права записи (Owner/Server) энфорсит NGO. Значения
-    // string/double/bool — нативные типы Lua, так что из скриптов читается/пишется естественно.
-    public class Blackboard
+    // Реплицируемый key-value-blackboard: сам является NetworkList<KvEntry> (значит NGO находит
+    // его как поле NetworkBehaviour и реплицирует), а сверху даёт доступ по ключу как к словарю.
+    // Право записи (Owner/Server) задаётся в конструкторе. Значения string/double/bool — нативные
+    // типы Lua, так что из скриптов читается/пишется естественно.
+    public class Blackboard : NetworkList<KvEntry>
     {
-        private readonly NetworkList<KvEntry> m_List;
-
-        public Blackboard(NetworkList<KvEntry> list)
+        public Blackboard(
+            NetworkVariableReadPermission readPerm = NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission writePerm = NetworkVariableWritePermission.Server)
+            : base(null, readPerm, writePerm)
         {
-            m_List = list;
         }
 
+        // Строковый индексатор рядом с унаследованным this[int] — перегрузка по типу ключа.
         public object this[string key]
         {
             get => TryGet(key, out var value) ? value : null;
@@ -65,9 +66,9 @@ namespace Sadalmalik.TotalShooter.Architecture
         public bool TryGet(string key, out object value)
         {
             var target = new FixedString64Bytes(key);
-            for (var i = 0; i < m_List.Count; i++)
+            for (var i = 0; i < Count; i++)
             {
-                var entry = m_List[i];
+                var entry = base[i];
                 if (!entry.Key.Equals(target))
                     continue;
                 value = FromEntry(entry);
@@ -81,15 +82,15 @@ namespace Sadalmalik.TotalShooter.Architecture
         private void Set(string key, object value)
         {
             var entry = ToEntry(key, value);
-            for (var i = 0; i < m_List.Count; i++)
+            for (var i = 0; i < Count; i++)
             {
-                if (!m_List[i].Key.Equals(entry.Key))
+                if (!base[i].Key.Equals(entry.Key))
                     continue;
-                m_List[i] = entry; // обновление существующего ключа — реплицируется
+                base[i] = entry; // обновление существующего ключа — реплицируется
                 return;
             }
 
-            m_List.Add(entry); // новый ключ — реплицируется
+            Add(entry); // новый ключ — реплицируется
         }
 
         private static object FromEntry(KvEntry entry)
