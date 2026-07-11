@@ -6,19 +6,19 @@
 
 ## Жизненный цикл сессии — пошагово
 
-1. `GameStarter` (на стартовой сцене) поднимает `UILoadingScreen` (сразу активен),
-   инстанциирует `NetworkManager`, `GameManager`, `WorldManager`, список UI-префабов из
+1. `GameStarter` (на стартовой сцене) поднимает `UILoadingScreen` (сразу активен), регистрирует
+   в `Service` менеджеры (`SessionManager`, `GameManager`, `WorldManager`), список UI-префабов из
    `GameStarter`, показывает `UIMainMenu`.
 2. Игрок 1 жмёт "Создать" → `UICreateGame` (название/пароль/выбор мира) → "создать":
-   `NetworkManager` поднимает Relay-сессию + регистрирует комнату в Unity Lobby →
-   `GameManager` загружает мир через `WorldManager` → создаёт `GameState`, `AIController`,
-   `AIDirector` (один раз на сессию) → спавнится `PlayerState`+`PlayerController` для
-   игрока 1 → `PlayerController.Possess(defaultGhost)` → скрывается `UILoadingScreen` →
-   показывается `UIInGameHUD`.
+   `SessionManager` поднимает сессию через Sessions API (Relay + Lobby под капотом; NGO-хост
+   стартует под капотом) → `GameManager.StartHost()` загружает мир через `WorldManager` → создаёт
+   `GameState`, `AIController`, `AIDirector` (один раз на сессию) → спавнит `PlayerState`+
+   `PlayerController` для игрока 1 → `PlayerController.Possess(defaultGhost)` → скрывается
+   `UILoadingScreen` → показывается `UIInGameHUD`.
 3. Игрок 2 жмёт "Присоединиться" → `UIJoinGame` — список комнат из Unity Lobby, выбор,
-   пароль (если нужен) → "присоединиться": клиент подключается через Relay → на хосте
-   `NetworkManager` (в колбэке подключения NGO) спавнит `PlayerState`+`PlayerController` для
-   игрока 2 → мир уже загружен, реплицируется в рамках подключения → `Possess(defaultGhost)`.
+   пароль (если нужен) → "присоединиться": `SessionManager` присоединяет к сессии по коду →
+   на хосте `GameManager` (в колбэке подключения NGO) спавнит `PlayerState`+`PlayerController`
+   для игрока 2 → мир уже загружен, реплицируется в рамках подключения → `Possess(defaultGhost)`.
 4. Каждый игрок жмёт "готов" (MVP: кнопка в `UIInGameHUD`, не скрипт — см.
    architecture-network.md "Заметки на будущее") → `GameManager` считает готовых, при всех готовых
    стартует 10-секундный countdown (пишет в `GameState.NetworkVariable`), новый коннект во

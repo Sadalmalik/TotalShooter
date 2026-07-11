@@ -106,7 +106,7 @@ Job/Burst позже).
 реалтайме (sandbox), локальный pathfinding клиента должен видеть те же изменения навигации,
 что и хост.
 
-## Жизненный цикл сессии: GameManager / NetworkManager / GameState
+## Жизненный цикл сессии: GameManager / SessionManager / GameState
 
 Разделение ответственности (по мотивам UE GameMode/GameState, адаптировано под наш стек):
 
@@ -115,12 +115,13 @@ Job/Burst позже).
   lobby → ready-up/countdown → игра идёт → (возможно) итоги. Решает, когда включены
   `AIController`/`AIDirector`, когда игрокам выдаётся боевой персонаж вместо призрака, разрешён
   ли переход в sandbox. Дирижирует `AIController`/`AIDirector`/`WorldManager`, не подменяет их.
-- **`NetworkManager`** — только транспортные вещи: создание/поиск комнаты (Relay + Unity Lobby
-  для списка комнат, см. раздел UI ниже), обработка подключения/отключения клиентов, спавн
-  `Player Prefab` (пара `PlayerState`+`PlayerController`) на каждое подключение — это то, что
-  технически обязано происходить в момент коннекта в NGO. `GameState`/`AIController`/
-  `AIDirector` — НЕ создаются на каждое подключение, это одиночные объекты на всю сессию,
-  их создаёт `GameManager` один раз при старте хостинга.
+- **`SessionManager`** — только жизненный цикл сессии/комнаты: создать/найти/присоединить/
+  покинуть сессию через Sessions API (Relay + Lobby под капотом, список комнат — см. раздел UI
+  ниже). Не путать с движком репликации `Unity.Netcode.NetworkManager` (транспорт/спавн/синк) —
+  это разные слои: `SessionManager` — «входная дверь» в сессию, NGO — движок. Спавн игроков на
+  коннекте (`Player Prefab` = `PlayerState`+`PlayerController`) делает `GameManager`, подписываясь
+  на коннект-коллбэки NGO, а не `SessionManager`. `GameState`/`AIController`/`AIDirector` —
+  одиночные объекты на сессию, их тоже создаёт `GameManager` при старте хостинга.
 - **`GameState`** — реплицируемое состояние матча, целиком **KV-blackboard** (а не набор
   фиксированных `NetworkVariable`-полей): фаза/countdown/число готовых и любую кастомную мету
   пишет матч-Lua (через `GameManager`), клиенты читают для UI. Пишет только хост. Реализация —

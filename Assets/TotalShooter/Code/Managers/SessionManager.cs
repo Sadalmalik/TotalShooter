@@ -5,11 +5,12 @@ using Unity.Services.Multiplayer;
 
 namespace Sadalmalik.TotalShooter
 {
-    // Транспорт/сессия: поднимает Unity Services и создаёт/присоединяет игровую сессию через
-    // Sessions API (Relay+Lobby под капотом; сам стартует NGO-хост/клиент). Спавн игроков и фазы
-    // матча — не здесь, это GameManager. POCO-сервис (не MonoBehaviour): реактивный, Unity-цикл не
-    // нужен. Наш NetworkManager != Unity.Netcode.NetworkManager (тем рулит Sessions API под капотом).
-    public class NetworkManager
+    // "Входная дверь" в сетевую сессию (не путать с движком репликации Unity.Netcode.NetworkManager
+    // — это разные слои). Поднимает Unity Services и создаёт/находит/присоединяет/покидает игровую
+    // сессию через Sessions API (Relay-аллокация + Lobby-комната под капотом; сам стартует NGO
+    // хост/клиент). Транспорт, спавн, синк — это уже NGO. Спавн игроков и фазы матча — GameManager.
+    // POCO-сервис: реактивный, Unity-цикл не нужен.
+    public class SessionManager
     {
         public ISession CurrentSession { get; private set; }
         public bool IsInSession => CurrentSession != null;

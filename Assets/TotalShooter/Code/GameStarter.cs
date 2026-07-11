@@ -15,10 +15,10 @@ namespace Sadalmalik.TotalShooter
 
         private void Start()
         {
-            // Менеджеры — POCO-сервисы, достаются везде через Service.Get<T>(). NetworkManager
+            // Менеджеры — POCO-сервисы, достаются везде через Service.Get<T>(). SessionManager
             // сам поднимает Unity Services лениво при создании/входе в сессию, здесь не инитим.
             Service.Add(new WorldManager());
-            Service.Add(new NetworkManager());
+            Service.Add(new SessionManager());
 
             // Локальный тест: оператор камеры создаётся вместе с контроллером; пешка (призрак) —
             // отдельно, контроллер её possess'ит.
