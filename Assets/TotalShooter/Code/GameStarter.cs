@@ -1,6 +1,7 @@
 using Sadalmalik.TotalShooter.Architecture;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Sadalmalik.TotalShooter
 {
@@ -8,6 +9,9 @@ namespace Sadalmalik.TotalShooter
     // назначен — падает в локальный тест движения (призрак+камера+контроллер), как раньше.
     public class GameStarter : MonoBehaviour
     {
+        // Имя рантайм-сцены под весь инстанцированный контент (мир + сетевые объекты).
+        private const string RuntimeSceneName = "Game";
+
         [Header("Меню")]
         [SerializeField] private UIManager m_UI;
 
@@ -23,6 +27,14 @@ namespace Sadalmalik.TotalShooter
 
         private void Start()
         {
+            // Пустая активная сцена под весь рантайм-контент: всё, что инстанцируется дальше (мир,
+            // GameState, игроки), падает в неё, а не в бутстрап-сцену. Объекты лежат плоско в
+            // корне (без общего Transform-родителя — тысячи детей под одним объектом тормозят
+            // Unity). Создаётся локально на каждом клиенте ДО сети, поэтому гарантированно есть у
+            // всех; NGO scene management при этом должен быть выключен (сцены по сети не гоняем).
+            var runtimeScene = SceneManager.CreateScene(RuntimeSceneName);
+            SceneManager.SetActiveScene(runtimeScene);
+
             // Менеджеры — POCO-сервисы, достаются везде через Service.Get<T>(). SessionManager
             // сам поднимает Unity Services лениво при создании/входе в сессию, здесь не инитим.
             Service.Add(new WorldManager());
