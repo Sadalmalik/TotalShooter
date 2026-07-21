@@ -16,7 +16,7 @@ namespace Sadalmalik.TotalShooter
         private static readonly HashSet<string> ReservedKeys = new()
         {
             "name", "prototype", "prefab", // data.json
-            "Proto", "EntityId", "Parent", "Transform", // world.json
+            "Proto", "EntityId", "Parent", "Transform", "Name", // world.json
         };
 
         private const BindingFlags MemberFlags =
@@ -85,7 +85,28 @@ namespace Sadalmalik.TotalShooter
                 result[type.Name] = DumpFields(component, type);
             }
 
+            // Встроенный Light — не из нашей сборки, поэтому в цикл выше не попадает. Сохраняем
+            // точечно (только если есть), чтобы свет можно было править из песочницы. Читается
+            // обратно общим Apply (резолвит UnityEngine.Light по имени и пишет свойства). Без света
+            // ключ не заводим. Набор свойств — курируемый (у Light десятки, многие read-only).
+            if (entity.TryGetComponent<Light>(out var light))
+                result["Light"] = DumpLight(light);
+
             return result;
+        }
+
+        private static JObject DumpLight(Light light)
+        {
+            var c = light.color;
+            return new JObject
+            {
+                ["type"] = light.type.ToString(),
+                ["color"] = new JObject { ["r"] = c.r, ["g"] = c.g, ["b"] = c.b, ["a"] = c.a },
+                ["intensity"] = light.intensity,
+                ["range"] = light.range,
+                ["spotAngle"] = light.spotAngle,
+                ["shadows"] = light.shadows.ToString(),
+            };
         }
 
         private static JObject DumpFields(object target, Type type)

@@ -267,6 +267,14 @@ namespace Sadalmalik.TotalShooter
 
             entity.Proto = proto;
             entity.EntityId = entry.Value<int?>("EntityId") ?? NoId;
+
+            var name = entry.Value<string>("Name");
+            if (!string.IsNullOrEmpty(name))
+            {
+                entity.Name = name;
+                entity.gameObject.name = name;
+            }
+
             Register(entity);
 
             ComponentOverrides.Apply(entity, entry);
@@ -343,6 +351,11 @@ namespace Sadalmalik.TotalShooter
         private static JObject BuildEntry(Entity entity)
         {
             var entry = new JObject { ["EntityId"] = entity.EntityId };
+
+            // Имя: явное Entity.Name, иначе имя GameObject (для рантайм-объектов без заданного Name).
+            var name = !string.IsNullOrEmpty(entity.Name) ? entity.Name : entity.name;
+            if (!string.IsNullOrEmpty(name))
+                entry["Name"] = name;
 
             if (!string.IsNullOrEmpty(entity.Proto))
                 entry["Proto"] = entity.Proto;
