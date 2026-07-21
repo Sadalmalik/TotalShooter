@@ -14,7 +14,7 @@ namespace Sadalmalik.TotalShooter.Models.Ghost
         private void Start()
         {
             // Smoothly move up and down continuously
-            transform.DOMoveY(transform.position.y + floatDistance, duration)
+            transform.DOLocalMoveY(transform.localPosition.y + floatDistance, duration)
                 .SetEase(Ease.InOutSine)      // Smooth slowdown at top and bottom
                 .SetLoops(-1, LoopType.Yoyo); // -1 means infinite loops, Yoyo means back-and-forth
         }

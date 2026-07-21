@@ -18,9 +18,10 @@ namespace Sadalmalik.TotalShooter
         [SerializeField] private float m_LookSensitivity = 0.1f;
         [SerializeField] private float m_ZoomSensitivity = 0.05f;
 
-        private float m_AngleY;
-        private float m_AngleX;
-        private float m_Zoom;
+        [Space]
+        [SerializeField] private float m_AngleY;
+        [SerializeField] private float m_AngleX;
+        [SerializeField] private float m_Zoom;
 
         // Пешка, за позицией которой следует камера. Ставит контроллер при possession.
         public Transform Target { get; set; }

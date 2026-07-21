@@ -1,3 +1,4 @@
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -15,19 +16,44 @@ namespace Sadalmalik.TotalShooter
         public ISession CurrentSession { get; private set; }
         public bool IsInSession => CurrentSession != null;
 
+        // Имя игрока. Используется как auth-профиль → разные имена дают разные PlayerId (иначе два
+        // анонимных входа на одной машине делят кэш-учётку и Lobby ругается "already a member").
+        // Задаётся из главного меню до создания/входа в сессию.
+        public string PlayerName { get; set; } = "Player";
+
         private bool m_ServicesReady;
 
-        // Инициализация Unity Services + анонимный вход — один раз за запуск.
+        // Инициализация Unity Services + анонимный вход под профилем игрока — один раз за запуск.
         public async Task EnsureServicesAsync()
         {
             if (m_ServicesReady)
                 return;
 
-            await UnityServices.InitializeAsync();
+            var options = new InitializationOptions();
+            options.SetProfile(ToProfile(PlayerName));
+            await UnityServices.InitializeAsync(options);
+
             if (!AuthenticationService.Instance.IsSignedIn)
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             m_ServicesReady = true;
+        }
+
+        // Профиль Unity Authentication допускает только [a-zA-Z0-9_-], до 30 символов.
+        private static string ToProfile(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return "Player";
+
+            var builder = new StringBuilder();
+            foreach (var c in name)
+                if (char.IsLetterOrDigit(c) || c == '_' || c == '-')
+                    builder.Append(c);
+
+            if (builder.Length == 0)
+                return "Player";
+
+            return builder.Length > 30 ? builder.ToString(0, 30) : builder.ToString();
         }
 
         // Хост: создаёт сессию с Relay-сетью, возвращает join-код для шаринга.

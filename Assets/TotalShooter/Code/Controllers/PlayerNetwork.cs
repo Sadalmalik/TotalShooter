@@ -46,10 +46,21 @@ namespace Sadalmalik.TotalShooter
             var camera = Instantiate(GameConfig.Instance.CameraOperatorPrefab);
 
             // Ждём, пока назначенная пешка появится и зарезолвится на нашем клиенте (порядок
-            // прихода спавнов и NetworkVariable не гарантирован).
+            // прихода спавнов и NetworkVariable не гарантирован). С таймаутом — чтобы не виснуть
+            // молча, если пешка не заспавнилась (напр. её префаб не зарегистрирован в NetworkManager).
+            var deadline = Time.time + 5f;
             NetworkObject pawnObject;
             while (!m_Pawn.Value.TryGet(out pawnObject))
+            {
+                if (Time.time > deadline)
+                {
+                    Debug.LogError("PlayerNetwork: назначенная пешка не зарезолвилась за 5с — " +
+                                   "префаб пешки зарегистрирован в NetworkManager Network Prefabs?");
+                    yield break;
+                }
+
                 yield return null;
+            }
 
             m_Controller.enabled = true;
             m_Controller.Setup(camera, pawnObject.GetComponent<Entity>());
