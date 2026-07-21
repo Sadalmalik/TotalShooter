@@ -4,7 +4,7 @@
     {
       "EntityId": 1,
       "Name": "Floor_2",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -27,7 +27,7 @@
     {
       "EntityId": 2,
       "Name": "Floor_14",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -50,7 +50,7 @@
     {
       "EntityId": 3,
       "Name": "Floor_6",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -94,7 +94,7 @@
     {
       "EntityId": 5,
       "Name": "Floor_3",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -117,7 +117,7 @@
     {
       "EntityId": 6,
       "Name": "Floor_5",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -139,13 +139,13 @@
     },
     {
       "EntityId": 7,
-      "Name": "Spawner_2",
+      "Name": "Spawner-1",
       "Parent": 9,
       "Transform": {
         "Position": [
-          10.0,
+          30.0,
           1.0,
-          10.0
+          0.0
         ],
         "Rotation": [
           0.0,
@@ -158,12 +158,22 @@
           1.0
         ]
       },
-      "SpawnPoint": {}
+      "Spawner": {
+        "Tags": [
+          "Regular"
+        ],
+        "Units": [
+          "Units/Blob"
+        ],
+        "SpawnCooldown": 1.0,
+        "AutoSpawn": true,
+        "AutoSpawnLimit": 10
+      }
     },
     {
       "EntityId": 8,
       "Name": "Floor",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -207,7 +217,7 @@
     {
       "EntityId": 10,
       "Name": "Floor_1",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -230,7 +240,7 @@
     {
       "EntityId": 11,
       "Name": "Floor_7",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -252,7 +262,7 @@
     },
     {
       "EntityId": 12,
-      "Name": "Spawner_1",
+      "Name": "SpawPoint-1",
       "Parent": 9,
       "Transform": {
         "Position": [
@@ -276,7 +286,7 @@
     {
       "EntityId": 13,
       "Name": "Floor_4",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -355,7 +365,7 @@
     {
       "EntityId": 16,
       "Name": "Floor_11",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -378,7 +388,7 @@
     {
       "EntityId": 17,
       "Name": "Floor_18",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -401,7 +411,7 @@
     {
       "EntityId": 18,
       "Name": "Floor_19",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -424,7 +434,7 @@
     {
       "EntityId": 19,
       "Name": "Floor_22",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -447,7 +457,7 @@
     {
       "EntityId": 20,
       "Name": "Floor_16",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -470,7 +480,7 @@
     {
       "EntityId": 21,
       "Name": "Floor_15",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -493,7 +503,7 @@
     {
       "EntityId": 22,
       "Name": "Floor_17",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -516,7 +526,7 @@
     {
       "EntityId": 23,
       "Name": "Floor_12",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -539,7 +549,7 @@
     {
       "EntityId": 24,
       "Name": "Floor_8",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -562,7 +572,7 @@
     {
       "EntityId": 25,
       "Name": "Floor_10",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -585,7 +595,7 @@
     {
       "EntityId": 26,
       "Name": "Floor_23",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -608,7 +618,7 @@
     {
       "EntityId": 27,
       "Name": "Floor_9",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -631,7 +641,7 @@
     {
       "EntityId": 28,
       "Name": "Floor_13",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -654,7 +664,7 @@
     {
       "EntityId": 29,
       "Name": "Floor_20",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -677,7 +687,7 @@
     {
       "EntityId": 30,
       "Name": "Floor_21",
-      "Proto": "Floor",
+      "Proto": "Props/Floor",
       "Parent": 4,
       "Transform": {
         "Position": [
@@ -696,6 +706,29 @@
           1.0
         ]
       }
+    },
+    {
+      "EntityId": 31,
+      "Name": "SpawPoint-2",
+      "Parent": 9,
+      "Transform": {
+        "Position": [
+          10.0,
+          1.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "SpawnPoint": {}
     }
   ]
 }
