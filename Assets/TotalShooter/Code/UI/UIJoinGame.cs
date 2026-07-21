@@ -33,9 +33,9 @@ namespace Sadalmalik.TotalShooter
             try
             {
                 // Клиент только присоединяется; игрока для него спавнит хост (GameManager) в
-                // колбэке подключения NGO.
+                // колбэке подключения NGO. Мир клиент грузит сам, узнав имя из GameState["world"].
                 await Service.Get<SessionManager>().JoinSessionByCodeAsync(code, m_PasswordField.text);
-                Service.Get<GameManager>().SpawnLocalEnvironment();
+                Service.Get<GameManager>().StartClient();
                 Manager.Hud.SetJoinCode(code);
                 Manager.Open(Manager.Hud);
             }

@@ -55,6 +55,15 @@ namespace Sadalmalik.TotalShooter
                 m_Entities.Remove(entity.EntityId);
         }
 
+        // Все зарегистрированные Entity, несущие компонент T (напр. SpawnPoint, Spawner). Компонент
+        // ищется на самом объекте Entity. Ленивый — вызывающий сам решает, как обходить результат.
+        public IEnumerable<T> FindComponents<T>() where T : Component
+        {
+            foreach (var entity in m_Entities.Values)
+                if (entity.TryGetComponent<T>(out var component))
+                    yield return component;
+        }
+
 #region Реестр контента (data.json + резолвинг прототипов)
 
         // Разбирает содержимое data.json (JSON-массив записей) в реестр определений. Само чтение

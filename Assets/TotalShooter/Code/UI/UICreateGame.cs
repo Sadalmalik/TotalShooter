@@ -8,8 +8,12 @@ namespace Sadalmalik.TotalShooter
     public class UICreateGame : UIScreen
     {
         [SerializeField] private TMP_InputField m_NameField;
+        [SerializeField] private TMP_InputField m_WorldField;
         [SerializeField] private TMP_InputField m_PasswordField;
         [SerializeField] private int m_MaxPlayers = 8;
+
+        // Мир по умолчанию, если поле пустое (папка Worlds/<DefaultWorld>/).
+        private const string DefaultWorld = "Sandbox";
         [SerializeField] private Button m_CreateButton;
         [SerializeField] private Button m_BackButton;
         [SerializeField] private TMP_Text m_StatusText;
@@ -30,10 +34,11 @@ namespace Sadalmalik.TotalShooter
                 var code = await Service.Get<SessionManager>()
                     .CreateSessionAsync(name, m_MaxPlayers, m_PasswordField.text);
 
-                // Хост поднят Sessions API'ем → спавним GameState + игроков.
-                var game = Service.Get<GameManager>();
-                game.SpawnLocalEnvironment();
-                game.StartHost();
+                // Хост поднят Sessions API'ем → грузим мир локально, спавним GameState + игроков.
+                var world = m_WorldField != null && !string.IsNullOrWhiteSpace(m_WorldField.text)
+                    ? m_WorldField.text
+                    : DefaultWorld;
+                Service.Get<GameManager>().StartHost(world);
 
                 Manager.Hud.SetJoinCode(code);
                 Manager.Open(Manager.Hud);

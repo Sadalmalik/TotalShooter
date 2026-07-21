@@ -80,9 +80,9 @@ namespace Sadalmalik.TotalShooter
                 if (type.Assembly != typeof(Entity).Assembly)
                     continue;
 
-                var fields = DumpFields(component, type);
-                if (fields.HasValues)
-                    result[type.Name] = fields;
+                // Пишем запись даже без полей: само наличие компонента — это состояние (маркеры
+                // вроде SpawnPoint/Item без полей должны переживать сохранение/загрузку как "{}").
+                result[type.Name] = DumpFields(component, type);
             }
 
             return result;
