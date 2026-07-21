@@ -163,6 +163,17 @@ namespace Sadalmalik.TotalShooter
         public static string WorldsRoot =>
             Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Worlds");
 
+        // Имена доступных миров: подпапки Worlds/, в которых лежит world.json. Для выбора мира в UI.
+        public static IEnumerable<string> ListWorlds()
+        {
+            if (!Directory.Exists(WorldsRoot))
+                yield break;
+
+            foreach (var dir in Directory.GetDirectories(WorldsRoot))
+                if (File.Exists(Path.Combine(dir, "world.json")))
+                    yield return Path.GetFileName(dir);
+        }
+
         // Загружает мир из папки Worlds/<worldName>/ (data.json + world.json).
         public bool LoadWorld(string worldName)
         {

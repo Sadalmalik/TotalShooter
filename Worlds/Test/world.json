@@ -1,0 +1,701 @@
+{
+  "schemaVersion": 1,
+  "entities": [
+    {
+      "EntityId": 1,
+      "Name": "Floor_2",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          -10.0,
+          0.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 2,
+      "Name": "Floor_14",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          -20.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 3,
+      "Name": "Floor_6",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          10.0,
+          0.0,
+          -10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 4,
+      "Name": "Environment",
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 5,
+      "Name": "Floor_3",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          -10.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 6,
+      "Name": "Floor_5",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 7,
+      "Name": "Spawner_2",
+      "Parent": 9,
+      "Transform": {
+        "Position": [
+          10.0,
+          1.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "SpawnPoint": {}
+    },
+    {
+      "EntityId": 8,
+      "Name": "Floor",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 9,
+      "Name": "Spawners",
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 10,
+      "Name": "Floor_1",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 11,
+      "Name": "Floor_7",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 12,
+      "Name": "Spawner_1",
+      "Parent": 9,
+      "Transform": {
+        "Position": [
+          -10.0,
+          1.0,
+          -10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "SpawnPoint": {}
+    },
+    {
+      "EntityId": 13,
+      "Name": "Floor_4",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          -10.0,
+          0.0,
+          -10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 14,
+      "Name": "Directional Light",
+      "Parent": 15,
+      "Transform": {
+        "Position": [
+          0.0,
+          5.0,
+          0.0
+        ],
+        "Rotation": [
+          50.0,
+          330.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "Light": {
+        "type": "Directional",
+        "color": {
+          "r": 1.0,
+          "g": 0.956862748,
+          "b": 0.8392157,
+          "a": 1.0
+        },
+        "intensity": 1.0,
+        "range": 10.0,
+        "spotAngle": 30.0,
+        "shadows": "Soft"
+      }
+    },
+    {
+      "EntityId": 15,
+      "Name": "Light",
+      "Transform": {
+        "Position": [
+          -5.17,
+          0.0,
+          -0.97682
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 16,
+      "Name": "Floor_11",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          20.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 17,
+      "Name": "Floor_18",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          50.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 18,
+      "Name": "Floor_19",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          50.0,
+          0.0,
+          -10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 19,
+      "Name": "Floor_22",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          60.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 20,
+      "Name": "Floor_16",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          30.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 21,
+      "Name": "Floor_15",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          20.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 22,
+      "Name": "Floor_17",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          40.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 23,
+      "Name": "Floor_12",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          -10.0,
+          0.0,
+          20.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 24,
+      "Name": "Floor_8",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          10.0,
+          0.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 25,
+      "Name": "Floor_10",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          10.0,
+          0.0,
+          -20.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 26,
+      "Name": "Floor_23",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          60.0,
+          0.0,
+          -10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 27,
+      "Name": "Floor_9",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          10.0,
+          0.0,
+          20.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 28,
+      "Name": "Floor_13",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          -10.0,
+          0.0,
+          -20.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 29,
+      "Name": "Floor_20",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          50.0,
+          0.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 30,
+      "Name": "Floor_21",
+      "Proto": "Floor",
+      "Parent": 4,
+      "Transform": {
+        "Position": [
+          60.0,
+          0.0,
+          10.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    }
+  ]
+}
