@@ -163,7 +163,7 @@
           "Regular"
         ],
         "Units": [
-          "Units/Blob"
+          "Units/MobRoach"
         ],
         "SpawnCooldown": 1.0,
         "AutoSpawn": true,

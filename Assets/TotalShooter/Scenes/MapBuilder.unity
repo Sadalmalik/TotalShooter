@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_Tags:
   - Regular
   m_Units:
-  - Units/Blob
+  - Units/MobRoach
   m_SpawnCooldown: 1
   m_AutoSpawn: 1
   m_AutoSpawnLimit: 10

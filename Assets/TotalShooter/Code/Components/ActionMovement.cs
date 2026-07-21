@@ -4,7 +4,7 @@ namespace Sadalmalik.TotalShooter
 {
     // Исполнитель движения пешки: двигает Unity CharacterController по намерению, которое задаёт
     // контроллер (Move). Сам ввод не читает и про камеру не знает — контроллер уже разворачивает
-    // направление относительно камеры. Врагам позже — свой исполнитель (NavGridAgent).
+    // направление относительно камеры. Врагам — свой исполнитель (NavAgent).
     [RequireComponent(typeof(CharacterController))]
     public class ActionMovement : MonoBehaviour
     {
