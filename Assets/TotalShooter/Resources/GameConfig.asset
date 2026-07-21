@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb76a3795a4c2e40b3fb5eecfe4226f, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.GameConfig
+  GameStatePrefab: {fileID: 5591435385115207183, guid: 8f005a205d3192c419885c7eb206c0ee, type: 3}
+  PlayerControllerPrefab: {fileID: 5198161341115316332, guid: 5c9d4265cd7508b43baac56de89f7163, type: 3}
+  GhostPawnPrefab: {fileID: 3580848946251255155, guid: d2b04a990c2b5944689d4e6ecbdce223, type: 3}
+  CameraOperatorPrefab: {fileID: 2951304025031410878, guid: b059c9a11d1f6f2488e3786c05d62974, type: 3}
+  EnvironmentPrefab: {fileID: 137509882307423502, guid: 0aa049b710f3c9b498c5179888f192bc, type: 3}

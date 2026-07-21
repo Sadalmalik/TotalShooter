@@ -1,70 +1,34 @@
 using Sadalmalik.TotalShooter.Architecture;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Sadalmalik.TotalShooter
 {
-    // Bootstrap стартовой сцены: регистрирует менеджеры-сервисы и запускает UI-меню. Если UI не
-    // назначен — падает в локальный тест движения (призрак+камера+контроллер), как раньше.
+    // Bootstrap стартовой сцены: создаёт рантайм-сцену под контент, регистрирует менеджеры-сервисы
+    // и запускает UI-меню. Игровые префабы лежат в GameConfig (Resources), поэтому здесь только
+    // ссылка на UI. Движение проверяется через create-game одним инстансом (хост сам себе клиент).
     public class GameStarter : MonoBehaviour
     {
         // Имя рантайм-сцены под весь инстанцированный контент (мир + сетевые объекты).
         private const string RuntimeSceneName = "Game";
 
-        [Header("Меню")]
         [SerializeField] private UIManager m_UI;
-
-        [Header("Сессия (спавнит GameManager)")]
-        [SerializeField] private GameState m_GameStatePrefab;
-        [SerializeField] private NetworkObject m_PlayerPrefab;
-
-        [Header("Локальный тест (fallback, если UI не задан)")]
-        [SerializeField] private GameObject m_EnvironmentPrefab;
-        [SerializeField] private Entity m_GhostPrefab;
-        [SerializeField] private CameraOperator m_CameraOperatorPrefab;
-        [SerializeField] private PlayerController m_PlayerControllerPrefab;
 
         private void Start()
         {
-            // Пустая активная сцена под весь рантайм-контент: всё, что инстанцируется дальше (мир,
-            // GameState, игроки), падает в неё, а не в бутстрап-сцену. Объекты лежат плоско в
-            // корне (без общего Transform-родителя — тысячи детей под одним объектом тормозят
-            // Unity). Создаётся локально на каждом клиенте ДО сети, поэтому гарантированно есть у
-            // всех; NGO scene management при этом должен быть выключен (сцены по сети не гоняем).
+            // Пустая активная сцена под весь рантайм-контент: инстанцированное падает в неё, а не в
+            // бутстрап-сцену. Плоско в корне (без общего Transform-родителя — тысячи детей тормозят
+            // Unity). Создаётся локально на каждом клиенте до сети; NGO scene management выключен.
             var runtimeScene = SceneManager.CreateScene(RuntimeSceneName);
             SceneManager.SetActiveScene(runtimeScene);
 
-            // Менеджеры — POCO-сервисы, достаются везде через Service.Get<T>(). SessionManager
-            // сам поднимает Unity Services лениво при создании/входе в сессию, здесь не инитим.
+            // Менеджеры — POCO-сервисы, достаются везде через Service.Get<T>().
             Service.Add(new WorldManager());
             Service.Add(new SessionManager());
-            Service.Add(new GameManager(m_GameStatePrefab, m_PlayerPrefab));
+            Service.Add(new GameManager());
 
             if (m_UI != null)
-            {
                 m_UI.ShowMainMenu();
-                return;
-            }
-
-            RunLocalMovementTest();
-        }
-
-        // Оператор камеры создаётся вместе с контроллером; пешка (призрак) — отдельно, контроллер
-        // её possess'ит. Оставлено для быстрой проверки движения без сети/меню.
-        private void RunLocalMovementTest()
-        {
-            if (m_GhostPrefab == null)
-                return;
-
-            if (m_EnvironmentPrefab != null)
-                Instantiate(m_EnvironmentPrefab);
-
-            var pawn = Instantiate(m_GhostPrefab);
-            var camera = Instantiate(m_CameraOperatorPrefab);
-            var controller = Instantiate(m_PlayerControllerPrefab);
-
-            controller.Setup(camera, pawn);
         }
 
         // Чистим реестр сервисов на выходе — статик переживает выход из Play Mode (domain reload

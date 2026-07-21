@@ -31,14 +31,17 @@ namespace Sadalmalik.TotalShooter
                     .CreateSessionAsync(name, m_MaxPlayers, m_PasswordField.text);
 
                 // Хост поднят Sessions API'ем → спавним GameState + игроков.
-                Service.Get<GameManager>().StartHost();
+                var game = Service.Get<GameManager>();
+                game.SpawnLocalEnvironment();
+                game.StartHost();
 
                 Manager.Hud.SetJoinCode(code);
                 Manager.Open(Manager.Hud);
             }
             catch (System.Exception e)
             {
-                SetStatus($"Ошибка: {e.Message}");
+                Debug.LogException(e);
+                SetStatus(e.ToString());
             }
             finally
             {

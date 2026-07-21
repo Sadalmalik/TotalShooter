@@ -3,24 +3,17 @@ using UnityEngine;
 
 namespace Sadalmalik.TotalShooter
 {
-    // Host-only "мозг матча": спавнит единый GameState и объект игрока на каждое подключение,
-    // хостит матч-Lua (пока не подключено). Сам НЕ NetworkObject — клиентская копия не нужна, это
-    // POCO-сервис. Тонкий: фазы/готовность/отсчёт решает матч-скрипт через KV-GameState, не C#.
+    // Host-only "мозг матча": спавнит единый GameState, а на каждое подключение — контроллер и
+    // пешку игрока, и раздаёт пешку контроллеру. Префабы берёт из GameConfig (не через конструктор).
+    // Сам НЕ NetworkObject — это POCO-сервис. Тонкий: фазы/готовность решает матч-Lua через
+    // KV-GameState, не хардкод C#.
     public class GameManager : System.IDisposable
     {
-        private readonly GameState m_GameStatePrefab;
-        private readonly NetworkObject m_PlayerPrefab;
-
         private GameState m_GameState;
+        private GameObject m_Environment;
         private bool m_Started;
 
         public GameState State => m_GameState;
-
-        public GameManager(GameState gameStatePrefab, NetworkObject playerPrefab)
-        {
-            m_GameStatePrefab = gameStatePrefab;
-            m_PlayerPrefab = playerPrefab;
-        }
 
         // Вызывается после того, как SessionManager поднял хост (сессию через Sessions API).
         public void StartHost()
@@ -31,7 +24,7 @@ namespace Sadalmalik.TotalShooter
 
             var ngo = NetworkManager.Singleton;
 
-            m_GameState = Object.Instantiate(m_GameStatePrefab);
+            m_GameState = Object.Instantiate(GameConfig.Instance.GameStatePrefab);
             m_GameState.NetworkObject.Spawn();
 
             ngo.OnClientConnectedCallback += SpawnPlayer;
@@ -41,11 +34,29 @@ namespace Sadalmalik.TotalShooter
                 SpawnPlayer(clientId);
         }
 
-        // Отключение отдельно не обрабатываем: NGO сам деспавнит объект игрока при дисконнекте.
+        // Контроллер + пешка на клиента (оба во владении клиента), пешку отдаём контроллеру.
+        // Отключение отдельно не обрабатываем: NGO сам деспавнит объекты игрока при дисконнекте.
         private void SpawnPlayer(ulong clientId)
         {
-            var player = Object.Instantiate(m_PlayerPrefab);
-            player.SpawnAsPlayerObject(clientId);
+            var config = GameConfig.Instance;
+
+            var pawn = Object.Instantiate(config.GhostPawnPrefab);
+            pawn.SpawnWithOwnership(clientId);
+
+            var controller = Object.Instantiate(config.PlayerControllerPrefab);
+            controller.SpawnAsPlayerObject(clientId);
+            controller.GetComponent<PlayerNetwork>().AssignPawn(pawn);
+        }
+
+        // Окружение — не сетевое: каждый инстанс (хост и клиенты) поднимает своё локально при входе.
+        public void SpawnLocalEnvironment()
+        {
+            if (m_Environment != null)
+                return;
+
+            var prefab = GameConfig.Instance.EnvironmentPrefab;
+            if (prefab != null)
+                m_Environment = Object.Instantiate(prefab);
         }
 
         public void Dispose()
