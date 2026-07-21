@@ -729,6 +729,253 @@
         ]
       },
       "SpawnPoint": {}
+    },
+    {
+      "EntityId": 32,
+      "Name": "Node_0",
+      "Parent": 37,
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "NavNode": {
+        "Shape": 1,
+        "Radius": 3.0,
+        "Width": 30.0,
+        "Length": 50.0,
+        "Height": 5.0,
+        "Neighbours": [
+          {
+            "Id": 33,
+            "Type": "walk"
+          }
+        ]
+      }
+    },
+    {
+      "EntityId": 33,
+      "Name": "Node_1",
+      "Parent": 37,
+      "Transform": {
+        "Position": [
+          15.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "NavNode": {
+        "Shape": 1,
+        "Radius": 3.0,
+        "Width": 1.0,
+        "Length": 10.0,
+        "Height": 5.0,
+        "Neighbours": [
+          {
+            "Id": 32,
+            "Type": "walk"
+          },
+          {
+            "Id": 34,
+            "Type": "vent"
+          }
+        ]
+      }
+    },
+    {
+      "EntityId": 34,
+      "Name": "Node_2",
+      "Parent": 37,
+      "Transform": {
+        "Position": [
+          30.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "NavNode": {
+        "Shape": 1,
+        "Radius": 3.0,
+        "Width": 29.0,
+        "Length": 10.0,
+        "Height": 1.0,
+        "Neighbours": [
+          {
+            "Id": 35,
+            "Type": "vent"
+          },
+          {
+            "Id": 33,
+            "Type": "vent"
+          }
+        ]
+      }
+    },
+    {
+      "EntityId": 35,
+      "Name": "Node_3",
+      "Parent": 37,
+      "Transform": {
+        "Position": [
+          45.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "NavNode": {
+        "Shape": 1,
+        "Radius": 3.0,
+        "Width": 1.0,
+        "Length": 10.0,
+        "Height": 5.0,
+        "Neighbours": [
+          {
+            "Id": 34,
+            "Type": "vent"
+          },
+          {
+            "Id": 36,
+            "Type": "walk"
+          }
+        ]
+      }
+    },
+    {
+      "EntityId": 36,
+      "Name": "Node_4",
+      "Parent": 37,
+      "Transform": {
+        "Position": [
+          53.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "NavNode": {
+        "Shape": 1,
+        "Radius": 3.0,
+        "Width": 15.0,
+        "Length": 30.0,
+        "Height": 5.0,
+        "Neighbours": [
+          {
+            "Id": 38,
+            "Type": "walk"
+          },
+          {
+            "Id": 35,
+            "Type": "walk"
+          }
+        ]
+      }
+    },
+    {
+      "EntityId": 37,
+      "Name": "Navigation",
+      "Transform": {
+        "Position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "EntityId": 38,
+      "Name": "Node_5",
+      "Parent": 37,
+      "Transform": {
+        "Position": [
+          60.0,
+          0.0,
+          0.0
+        ],
+        "Rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "NavNode": {
+        "Shape": 0,
+        "Radius": 5.0,
+        "Width": 20.0,
+        "Length": 30.0,
+        "Height": 5.0,
+        "Neighbours": [
+          {
+            "Id": 36,
+            "Type": "walk"
+          }
+        ]
+      }
     }
   ]
 }

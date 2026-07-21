@@ -259,6 +259,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8326961456909979987, guid: 7b0d166631692c34285298010513d68f, type: 3}
   m_PrefabInstance: {fileID: 152764034}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &263537442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263537444}
+  - component: {fileID: 263537443}
+  m_Layer: 0
+  m_Name: Navigation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &263537443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263537442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 37
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
+--- !u!4 &263537444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263537442}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 794062742}
+  - {fileID: 2001174446}
+  - {fileID: 1380883094}
+  - {fileID: 2080244628}
+  - {fileID: 1671921030}
+  - {fileID: 1253842246}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &284342258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1175,6 +1229,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8326961456909979987, guid: 7b0d166631692c34285298010513d68f, type: 3}
   m_PrefabInstance: {fileID: 779329578}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &794062741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 794062742}
+  - component: {fileID: 794062744}
+  - component: {fileID: 794062743}
+  m_Layer: 0
+  m_Name: Node_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &794062742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794062741}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263537444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &794062743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794062741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ee1d8675f4fe4d8d0d52ad5b6a1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.NavNode
+  m_Shape: 1
+  m_Radius: 3
+  m_Width: 30
+  m_Length: 50
+  m_Height: 5
+  m_Neighbours:
+  - Id: 33
+    Type: walk
+--- !u!114 &794062744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794062741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 32
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
 --- !u!1001 &799833393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1455,6 +1578,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8326961456909979987, guid: 7b0d166631692c34285298010513d68f, type: 3}
   m_PrefabInstance: {fileID: 1053203687}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1253842245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1253842246}
+  - component: {fileID: 1253842248}
+  - component: {fileID: 1253842247}
+  m_Layer: 0
+  m_Name: Node_5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1253842246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253842245}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 60, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263537444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1253842247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253842245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ee1d8675f4fe4d8d0d52ad5b6a1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.NavNode
+  m_Shape: 0
+  m_Radius: 5
+  m_Width: 20
+  m_Length: 30
+  m_Height: 5
+  m_Neighbours:
+  - Id: 36
+    Type: walk
+--- !u!114 &1253842248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253842245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 38
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
 --- !u!1 &1293705215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,6 +1785,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8326961456909979987, guid: 7b0d166631692c34285298010513d68f, type: 3}
   m_PrefabInstance: {fileID: 1342733770}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1380883093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1380883094}
+  - component: {fileID: 1380883096}
+  - component: {fileID: 1380883095}
+  m_Layer: 0
+  m_Name: Node_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1380883094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380883093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263537444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1380883095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380883093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ee1d8675f4fe4d8d0d52ad5b6a1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.NavNode
+  m_Shape: 1
+  m_Radius: 3
+  m_Width: 29
+  m_Length: 10
+  m_Height: 1
+  m_Neighbours:
+  - Id: 35
+    Type: vent
+  - Id: 33
+    Type: vent
+--- !u!114 &1380883096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380883093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 34
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
 --- !u!1001 &1398202256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1733,6 +1996,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8326961456909979987, guid: 7b0d166631692c34285298010513d68f, type: 3}
   m_PrefabInstance: {fileID: 1517536417}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1671921029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1671921030}
+  - component: {fileID: 1671921032}
+  - component: {fileID: 1671921031}
+  m_Layer: 0
+  m_Name: Node_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1671921030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671921029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 53, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263537444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1671921031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671921029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ee1d8675f4fe4d8d0d52ad5b6a1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.NavNode
+  m_Shape: 1
+  m_Radius: 3
+  m_Width: 15
+  m_Length: 30
+  m_Height: 5
+  m_Neighbours:
+  - Id: 38
+    Type: walk
+  - Id: 35
+    Type: walk
+--- !u!114 &1671921032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671921029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 36
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
 --- !u!1 &1727408898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,6 +2468,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8326961456909979987, guid: 7b0d166631692c34285298010513d68f, type: 3}
   m_PrefabInstance: {fileID: 1907659783}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2001174445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2001174446}
+  - component: {fileID: 2001174448}
+  - component: {fileID: 2001174447}
+  m_Layer: 0
+  m_Name: Node_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2001174446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001174445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263537444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2001174447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001174445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ee1d8675f4fe4d8d0d52ad5b6a1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.NavNode
+  m_Shape: 1
+  m_Radius: 3
+  m_Width: 1
+  m_Length: 10
+  m_Height: 5
+  m_Neighbours:
+  - Id: 32
+    Type: walk
+  - Id: 34
+    Type: vent
+--- !u!114 &2001174448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001174445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 33
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
 --- !u!1 &2057318202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,6 +2588,77 @@ Transform:
   - {fileID: 2126758414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2080244627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080244628}
+  - component: {fileID: 2080244630}
+  - component: {fileID: 2080244629}
+  m_Layer: 0
+  m_Name: Node_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080244628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080244627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 45, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263537444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2080244629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080244627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ee1d8675f4fe4d8d0d52ad5b6a1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.NavNode
+  m_Shape: 1
+  m_Radius: 3
+  m_Width: 1
+  m_Length: 10
+  m_Height: 5
+  m_Neighbours:
+  - Id: 34
+    Type: vent
+  - Id: 36
+    Type: walk
+--- !u!114 &2080244630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080244627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f9154bd23d4c2d89f205b81083b47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TotalShooter.Code::Sadalmalik.TotalShooter.Entity
+  EntityId: 35
+  controller: {fileID: 0}
+  Name: 
+  Proto: 
 --- !u!1 &2126758412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,3 +2881,4 @@ SceneRoots:
   - {fileID: 2057318204}
   - {fileID: 705425478}
   - {fileID: 1727408900}
+  - {fileID: 263537444}
